@@ -21,7 +21,15 @@ from .models import Publicacion
 #           context["titulo"] = "..."
 #           context["mensaje"] = "..."
 #           return context
+    
+class InicioView(TemplateView):
+        template_name = "publicaciones/inicio.html"
 
+        def get_context_data(self, **kwargs):
+                context = super().get_context_data(**kwargs)
+                context["titulo"] = "Publicaciones"
+                context["mensaje"] = "BIENVENIDO"
+                return context
 
 # ---------------------------------------------------------------------------
 # PublicacionListView
@@ -37,6 +45,11 @@ from .models import Publicacion
 #   class PublicacionListView(ListView):
 #       model = ...
 #       context_object_name = "..."
+
+class PublicacionListView(ListView):
+    model = Publicacion
+    template_name = "publicaciones/publicacion_list.html"
+    context_object_name = "publicacion_list"
 
 
 # ---------------------------------------------------------------------------
@@ -57,3 +70,9 @@ from .models import Publicacion
 #       model = ...
 #       context_object_name = "..."
 #       pk_url_kwarg = "..."
+
+    class PublicacionDetailView(DetailView): 
+        model = Publicacion
+        template_name = "publicaciones/publicacion_detail.html"
+        context_object_name = "publicacion"
+        pk_url_kwarg = "publicacion_id"
